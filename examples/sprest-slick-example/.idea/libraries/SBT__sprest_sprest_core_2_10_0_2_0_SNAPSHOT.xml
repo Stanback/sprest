@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="SBT: sprest:sprest-core_2.10:0.2.0-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/sprest/sprest-core_2.10/jars/sprest-core_2.10-0.2.0-SNAPSHOT.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.ivy2/cache/sprest/sprest-core_2.10/docs/sprest-core_2.10-0.2.0-SNAPSHOT-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/sprest/sprest-core_2.10/srcs/sprest-core_2.10-0.2.0-SNAPSHOT-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
