@@ -26,12 +26,7 @@ object DB extends SlickPersistence {
 
   val backend = ExampleBackend
 
-  abstract class UnsecuredDAO[M <: sprest.models.Model[Int]](tableName: String) extends TableDAO[M, Int] {
-
-    case class ExampleTable[M <: Model[Int], Int](name: String) extends ModelTable[M, Int](name) {
-      //val ColumnBase[T] = None
-    }
-    override def table: ModelTable[M, Int] = ExampleTable(tableName)
+  abstract class UnsecuredDAO[M <: sprest.models.Model[Int]] extends TableDAO[M, Int] {
 
     case class Selector(id: Int) extends UniqueSelector[M, Int]
     override implicit def generateSelector(id: Int) = Selector(id)
@@ -50,8 +45,28 @@ object DB extends SlickPersistence {
 
   }
 
+  //val tm = TypeMapper
+  implicit object DateTimeMapper
+
   // MySQL tables:
-  object ToDos extends UnsecuredDAO[ToDo]("todo") with IntId
-  object Reminders extends UnsecuredDAO[Reminder]("reminder") with IntId
+  class ToDosTable[M <: Model[Int], Int](name: String) extends ModelTable[M, Int](name) {
+    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+    def * = column[M]("*")
+  }
+  object ToDos extends UnsecuredDAO[ToDo] with IntId {
+    override def table: ModelTable[ToDo, Int] = {
+      new ToDosTable[ToDo, Int]("todo")
+    }
+  }
+
+  class RemindersTable[M <: Model[Int], Int](name: String) extends ModelTable[M, Int](name) {
+    def id = column[Int]("id", O.PrimaryKey, O.AutoInc)
+    def * = column[M]("*")
+  }
+  object Reminders extends UnsecuredDAO[Reminder] with IntId {
+    override def table: ModelTable[Reminder, Int] = {
+      new RemindersTable[Reminder, Int]("reminder")
+    }
+  }
 }
 
